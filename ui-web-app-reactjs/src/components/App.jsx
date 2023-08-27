@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'  
+import React, {useState} from 'react'
 
 const App = () => {
 
@@ -6,36 +6,10 @@ const App = () => {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
   const [displayData, setDisplayData] = useState({url:''})
-  const [details, setDetails] = useState({});
-  let [url, setUrl] = useState('');
-
-
-
-  const getUserGeolocationDetails = () => {
-    fetch(
-        "https://geolocation-db.com/json/344ec440-6bfc-11eb-a0c0-b5dee9e67313"
-    )
-        .then(response => response.json())
-        .then(data => {
-          
-          setDetails(data)
-        
-        });
-  }
-      
-  useEffect(()=>{
-    getUserGeolocationDetails()
-  },[])
-
-
-
 
   const handleApiCall = async (e) => {
-    let url = 'http://'+details.IPv4+':32470/'+e.target.name
-    console.log(details.IPv4)
-    console.log(url)
-    displayData.url=url
-    if(url){
+    const url = 'http://localhost:9999/'+e.target.name;
+    setDisplayData(prevDisplayData => ({ ...prevDisplayData, url }));
     let options = {}
       try {
           setLoading(true)
@@ -51,7 +25,6 @@ const App = () => {
       finally {
           setLoading(false)
       }
-    }
   }
 
 
@@ -94,4 +67,4 @@ const App = () => {
   )
 }
 
-export default App;
+export default App

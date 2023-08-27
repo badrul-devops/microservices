@@ -395,7 +395,7 @@ module.exports = (env, argv) => ({
       run: () => {
         console.log('\n')
         API && console.log(`🌎  => API listening on port ${API_PORT}...`)
-        console.log(`💻  => Application running in browser at http://zulu:${DEV_SERVER_PORT}\n\n`)
+        console.log(`💻  => Application running in browser at http://localhost:${DEV_SERVER_PORT}\n\n`)
       }
     })
   ].filter(Boolean),
@@ -435,7 +435,7 @@ module.exports = (env, argv) => ({
       http://bit.ly/2WIXOSV, http://bit.ly/2WDMWpv
       Nobody wants to see 0.0.0.0 in the browser. This get's rid of that.
     */
-    public: `http://zulu:${DEV_SERVER_PORT}`,
+    public: `http://localhost:${DEV_SERVER_PORT}`,
 
     /*
       http://bit.ly/2XlEOXN
@@ -445,7 +445,7 @@ module.exports = (env, argv) => ({
     */
     proxy: API_WEBPACK ? {
       [API_WEBPACK]: {
-        target: `http://zulu:${API_PORT}`,
+        target: `http://localhost:${API_PORT}`,
         bypass(req, res, proxyOptions) {
           // Direct all non-get requests to the API server.
           if (req.method.toLowerCase() !== 'get') return
