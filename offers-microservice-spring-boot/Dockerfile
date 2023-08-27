@@ -5,7 +5,7 @@ COPY . .
 RUN mvn install
 
 #jdk
-FROM openjdk:11.0.10-jre
+FROM gcr.io/distroless/java11-debian11
 WORKDIR /app
 COPY --from=build /app/target/offers-0.0.1-SNAPSHOT.jar /app 
 
