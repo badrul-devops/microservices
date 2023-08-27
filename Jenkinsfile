@@ -7,7 +7,7 @@ pipeline {
                 axes {
                     axis {
                         name 'MICROSERVICE'
-                        values 'cart-microservice-nodejs', 'eureka-discovery-server' , 'offers-microservice-spring-boot', 'shoes-microservice-spring-boot', 'ui-web-app-reactjs', 'wishlist-microservice-python', 'zuul-api-gateway'
+                           values 'cart-microservice-nodejs', 'eureka-discovery-server'//,'offers-microservice-spring-boot', 'shoes-microservice-spring-boot', 'ui-web-app-reactjs', 'wishlist-microservice-python', 'zuul-api-gateway'
                     }
                 }
                 stages {
