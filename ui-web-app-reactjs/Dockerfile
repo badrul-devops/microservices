@@ -1,32 +1,19 @@
-# Use an official Node.js runtime as the base image
-FROM node:14 as build
+# Stage 1: Build the application
+FROM node:8 AS builder
 
-# Set the working directory inside the container
 WORKDIR /app
-
-# Copy package.json and package-lock.json to the container
-COPY package*.json ./
-
-# Install dependencies
+COPY package.json package-lock.json ./
 RUN npm install
-
-# Copy the rest of the application code to the container
 COPY . .
-
-# Build the React application
 RUN npm run build
 
-# Use a lightweight Node.js runtime as the final image
-FROM node:14-alpine
+# Stage 2: Create a Distroless-based image for production
+FROM gcr.io/distroless/nodejs:16
 
-# Set the working directory inside the container
 WORKDIR /app
+COPY --from=builder /app/package.json /app/package-lock.json ./
+COPY --from=builder /app/dist /app/dist
 
-# Copy the built files from the previous stage to this stage
-COPY --from=build /app/build ./build
+EXPOSE 8090
 
-# Expose the port your app is running on (adjust if needed)
-EXPOSE 8070
-
-# Command to run your application
-CMD ["npm", "run", "start"]
+CMD ["dist/app.js"]  
